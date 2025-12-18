@@ -153,24 +153,6 @@
                     <i class="bi bi-box-arrow-in-right me-2"></i>Login
                 </button>
             </form>
-
-            <div class="demo-accounts">
-                <h6><i class="bi bi-info-circle me-1"></i>Demo Accounts:</h6>
-                <table>
-                    <tr>
-                        <td class="role">Admin:</td>
-                        <td>admin@atk.com / password</td>
-                    </tr>
-                    <tr>
-                        <td class="role">Staf Gudang:</td>
-                        <td>gudang@atk.com / password</td>
-                    </tr>
-                    <tr>
-                        <td class="role">Kasir:</td>
-                        <td>kasir@atk.com / password</td>
-                    </tr>
-                </table>
-            </div>
         </div>
     </div>
 
