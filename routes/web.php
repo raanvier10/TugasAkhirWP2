@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StokMasukController;
+use App\Http\Controllers\StokKeluarController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -56,9 +57,8 @@ Route::middleware('auth')->group(function () {
     
     // Stok Keluar - Admin & Kasir
     Route::middleware('role:admin,kasir')->group(function () {
-        Route::resource('stok-keluar', StokKeluarController::class)->only
-        (['index', 'create', 'store', 'destroy']);
-    }); 
+        Route::resource('stok-keluar', StokKeluarController::class)->only(['index', 'create', 'store', 'destroy']);
+    });
     
     // Laporan Stok - Semua role
     Route::get('/laporan/stok', [LaporanController::class, 'stok'])->name('laporan.stok');
