@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -40,5 +41,37 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'password' => 'hashed',
     ];
+
+    // Role constants
+    const ROLE_ADMIN = 'admin';
+    const ROLE_STAF_GUDANG = 'staf_gudang';
+    const ROLE_KASIR = 'kasir';
+
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isStafGudang(): bool
+    {
+        return $this->role === self::ROLE_STAF_GUDANG;
+    }
+
+    public function isKasir(): bool
+    {
+        return $this->role === self::ROLE_KASIR;
+    }
+
+    public function getRoleLabelAttribute(): string
+    {
+        return match($this->role) {
+            self::ROLE_ADMIN => 'Admin',
+            self::ROLE_STAF_GUDANG => 'Staf Gudang',
+            self::ROLE_KASIR => 'Kasir',
+            default => 'Unknown'
+        };
+    }
 }
+
