@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Laporan Barang Masuk - Inventory ATK')
+@section('title', 'Laporan Barang Masuk')
 
 @section('content')
 <h4 class="page-title">
@@ -8,7 +8,7 @@
 </h4>
 
 <!-- Filter Tanggal -->
-<div class="card mb-4">
+<div class="card mb-4 print-hide">
     <div class="card-body">
         <form action="{{ route('laporan.masuk') }}" method="GET" class="row g-3 align-items-end">
             <div class="col-md-4">
@@ -32,15 +32,32 @@
 </div>
 
 <div class="card">
+    <!-- Header khusus cetak -->
+    <div class="print-only text-center mb-3" style="display:none;">
+        <h5 class="mb-2">Laporan Barang Masuk</h5>
+        <style>
+            @page { size: A4; margin: 12mm; }
+            @media print {
+                body { -webkit-print-color-adjust: exact; }
+                .sidebar, .top-navbar, footer, .card-header, .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate, .print-hide, .page-title { display: none !important; }
+                .print-only { display: block !important; }
+                .main-content, .page-content, .card, .card-body { margin: 0; padding: 0; box-shadow: none; border: none; }
+                table { width: 100% !important; border-collapse: collapse !important; }
+                .table thead { display: table-header-group; background-color: #f0f0f0 !important; }
+                .table th, .table td { border: 1px solid #000 !important; padding: 6px !important; color: #000 !important; }
+                tr { page-break-inside: avoid; }
+            }
+        </style>
+    </div>
     <div class="card-header d-flex justify-content-between align-items-center">
         <span><i class="bi bi-table me-2"></i>Data Barang Masuk</span>
-        <button onclick="window.print()" class="btn btn-sm btn-primary">
+        <button onclick="printMasuk()" class="btn btn-sm btn-primary">
             <i class="bi bi-printer me-1"></i>Cetak
         </button>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered table-hover" id="tabelMasuk">
+            <table class="table table-bordered table-striped align-middle table-sm" id="tabelMasuk">
                 <thead class="table-light">
                     <tr>
                         <th>No.</th>
@@ -85,7 +102,7 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
-    $('#tabelMasuk').DataTable({
+    const dtMasuk = $('#tabelMasuk').DataTable({
         language: {
             search: "Cari:",
             lengthMenu: "Tampilkan _MENU_ data",
@@ -96,6 +113,15 @@ $(document).ready(function() {
             paginate: { next: ">", previous: "<" }
         }
     });
+
+    window.printMasuk = function() {
+        const originalLen = dtMasuk.page.len();
+        dtMasuk.page.len(-1).draw();
+        setTimeout(function() {
+            window.print();
+            dtMasuk.page.len(originalLen).draw();
+        }, 200);
+    }
 });
 </script>
 @endpush
