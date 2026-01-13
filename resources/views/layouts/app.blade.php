@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title', 'Inventory ATK')</title>
+    <title>@yield('title', 'DAFIA ATK')</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -230,7 +230,7 @@
     <div class="sidebar">
         <div class="sidebar-header">
             <a href="{{ route('dashboard') }}" class="sidebar-brand">
-                <i class="bi bi-box-seam me-2"></i>Inventory ATK
+                <i class="bi bi-box-seam me-2"></i>DAFIA ATK 
             </a>
             <i class="bi bi-list text-white" style="cursor:pointer;"></i>
         </div>
@@ -317,7 +317,7 @@
         </div>
 
         <footer>
-            Copyright &copy; {{ date('Y') }} - <a href="#">Inventory ATK</a>. All rights reserved.
+            Copyright &copy; {{ date('Y') }} - <a href="#">DAFIA ATK</a>. All rights reserved.
         </footer>
     </div>
 
