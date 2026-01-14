@@ -100,7 +100,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($stokRendah as $index => $barang)
+                    @foreach($stokRendah as $index => $barang)
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $barang->kode_barang }}</td>
@@ -112,14 +112,7 @@
                             </span>
                         </td>
                     </tr>
-                    @empty
-                    <tr>
-                        <td colspan="5" class="text-center py-3">
-                            <i class="bi bi-check-circle text-success me-2"></i>
-                            Semua stok barang dalam kondisi aman
-                        </td>
-                    </tr>
-                    @endforelse
+                    @endforeach
                 </tbody>
             </table>
         </div>
