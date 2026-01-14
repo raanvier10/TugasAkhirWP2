@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Stok Masuk - Inventory ATK')
+@section('title', 'Stok Masuk - DAFIA ATK')
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">

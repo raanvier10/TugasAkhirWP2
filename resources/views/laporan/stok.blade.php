@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Laporan Stok - Inventory ATK')
+@section('title', 'Laporan Stok - DAFIA ATK')
 
 @section('content')
 <h4 class="page-title">
