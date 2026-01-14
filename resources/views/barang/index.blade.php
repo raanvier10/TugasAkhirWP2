@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Data Barang - Inventory ATK')
+@section('title', 'Data Barang - DAFIA ATK')
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -11,14 +11,7 @@
         <i class="bi bi-plus-circle me-1"></i>Tambah Barang
     </a>
 </div>
-
-{{-- Alert Success --}}
-@if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-@endif
+{{-- session messages shown as toast in layout --}}
 
 <div class="card">
     <div class="card-body">
@@ -57,7 +50,7 @@
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                             <form action="{{ route('barang.destroy', $barang) }}" method="POST" class="d-inline"
-                                  onsubmit="return confirm('Apakah Anda yakin ingin menghapus barang ini?')">
+                                  data-confirm="Apakah Anda yakin ingin menghapus barang ini?">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger" title="Hapus">

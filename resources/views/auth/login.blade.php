@@ -108,18 +108,29 @@
             <h4>DAFIA ATK</h4>
         </div>
         <div class="login-body">
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                       @if(session('success') || session('error') || $errors->any())
+                @php
+                    if (session('success')) {
+                        $isSuccess = true; $message = session('success');
+                    } elseif (session('error')) {
+                        $isSuccess = false; $message = session('error');
+                    } else { $isSuccess = false; $message = $errors->first(); }
+                    $icon = $isSuccess ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill';
+                @endphp
+                <div aria-live="polite" aria-atomic="true" class="position-relative">
+                    <div id="loginToast" class="toast custom-toast align-items-center text-bg-{{ $isSuccess ? 'success' : 'danger' }} border-0 position-absolute top-0 start-50 translate-middle-x" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000" data-bs-autohide="true" style="margin-top:-60px;">
+                        <div class="toast-body">
+                            <i class="bi {{ $icon }} toast-icon text-white"></i>
+                            <span class="toast-message">{{ $message }}</span>
+                        </div>
+                    </div>
                 </div>
-            @endif
-
-            @if($errors->any())
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="bi bi-exclamation-circle me-2"></i>{{ $errors->first() }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var el = document.getElementById('loginToast');
+                        if (el) { new bootstrap.Toast(el, { delay: 2000, autohide: true }).show(); }
+                    });
+                </script>
             @endif
 
             <form action="{{ route('login.post') }}" method="POST">

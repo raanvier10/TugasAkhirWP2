@@ -223,6 +223,52 @@
             color: #5a4fcf;
             text-decoration: none;
         }
+        /* Custom toast styling */
+        .custom-toast {
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            min-width: 360px;
+            max-width: calc(100vw - 40px);
+            overflow: hidden;
+        }
+        .custom-toast .toast-body {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: center;
+            font-weight: 600;
+            padding: 14px 18px;
+            font-size: 1rem;
+        }
+        .custom-toast .toast-icon { font-size: 1.4rem; }
+
+        /* Confirm modal styling (match toast feel) */
+        .confirm-modal .modal-content {
+            border: 0;
+            border-radius: 14px;
+            box-shadow: 0 18px 60px rgba(0,0,0,0.18);
+            overflow: hidden;
+        }
+        .confirm-modal .modal-body {
+            padding: 22px;
+        }
+        .confirm-modal .confirm-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .confirm-modal .confirm-title {
+            font-weight: 700;
+            margin: 0;
+        }
+        .confirm-modal .confirm-message {
+            margin: 8px 0 0;
+            color: #555;
+        }
     </style>
 </head>
 <body>
@@ -320,6 +366,51 @@
             Copyright &copy; {{ date('Y') }} - <a href="#">DAFIA ATK</a>. All rights reserved.
         </footer>
     </div>
+     <!-- Confirm Delete Modal -->
+    <div class="modal fade confirm-modal" id="confirmActionModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div class="confirm-icon bg-danger text-white mx-auto mb-3">
+                        <i class="bi bi-trash3"></i>
+                    </div>
+                    <h5 class="confirm-title">Konfirmasi Hapus</h5>
+                    <p class="confirm-message" id="confirmActionMessage">Apakah Anda yakin?</p>
+                    <div class="d-flex gap-2 justify-content-center mt-4">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-danger" id="confirmActionSubmit">Hapus</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Toast container for session messages (centered, 2s, styled) -->
+    <div aria-live="polite" aria-atomic="true" class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1080;">
+        @if(session('success') || session('error') || ($errors ?? null) && $errors->any())
+            @php
+                if (session('success')) {
+                    $isSuccess = true;
+                    $message = session('success');
+                } elseif (session('error')) {
+                    $isSuccess = false;
+                    $message = session('error');
+                } elseif(isset($errors) && $errors->any()) {
+                    $isSuccess = false;
+                    $message = $errors->first();
+                } else {
+                    $isSuccess = false;
+                    $message = '';
+                }
+                $icon = $isSuccess ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill';
+            @endphp
+            <div id="sessionToast" class="toast custom-toast align-items-center text-bg-{{ $isSuccess ? 'success' : 'danger' }} border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000" data-bs-autohide="true">
+                <div class="toast-body">
+                    <i class="bi {{ $icon }} toast-icon text-white" aria-hidden="true"></i>
+                    <span class="toast-message">{{ $message }}</span>
+                </div>
+            </div>
+        @endif
+    </div>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -328,4 +419,15 @@
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.getElementById('sessionToast');
+            if (el) {
+                var toast = new bootstrap.Toast(el, { delay: 2000, autohide: true });
+                toast.show();
+            }
+        });
+    </script>
     @stack('scripts')
+</body>
+</html>

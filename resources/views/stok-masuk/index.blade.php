@@ -12,13 +12,7 @@
     </a>
 </div>
 
-{{-- Alert Success --}}
-@if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-@endif
+{{-- session messages are shown as toast in layout --}}
 
 <div class="card">
     <div class="card-body">
@@ -48,7 +42,7 @@
                         </td>
                         <td>
                             <form action="{{ route('stok-masuk.destroy', $stok) }}" method="POST" class="d-inline"
-                                  onsubmit="return confirm('Hapus data ini? Stok barang akan dikurangi kembali.')">
+                                 data-confirm="Hapus data ini? Stok barang akan dikurangi kembali.">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger" title="Hapus">

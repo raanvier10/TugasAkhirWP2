@@ -11,22 +11,7 @@
         <i class="bi bi-plus-circle me-1"></i>Tambah User
     </a>
 </div>
-
-{{-- Alert Success --}}
-@if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-@endif
-
-{{-- Alert Error --}}
-@if(session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <i class="bi bi-exclamation-circle me-2"></i>{{ session('error') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-@endif
+{{-- session messages are shown as toast in layout --}}
 
 <div class="card">
     <div class="card-body">
@@ -66,7 +51,8 @@
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i>Edit
                             </a>
-                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus user ini?')">
+                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline" 
+                                    data-confirm="Apakah Anda yakin ingin menghapus user ini?">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">
