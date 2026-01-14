@@ -66,7 +66,7 @@
                                     required>
                                 <option value="">-- Pilih Satuan --</option>
                                 @php
-                                    $satuans = ['pcs', 'box', 'rim', 'lusin', 'pak'];
+                                    $satuans = ['pcs', 'box', 'rim', 'lusin', 'pack'];
                                 @endphp
                                 @foreach($satuans as $satuan)
                                     <option value="{{ $satuan }}" {{ old('satuan', $barang->satuan) == $satuan ? 'selected' : '' }}>
